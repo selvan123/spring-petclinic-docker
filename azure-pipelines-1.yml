@@ -80,7 +80,7 @@ stages:
               connectionType: 'Kubernetes Service Connection'
               kubernetesServiceEndpoint: 'selvannewk8-myAKSCluster-default-1618226829416'
               command: 'get'
-              arguments: 'secrets'
+              arguments: 'secrets secret/my-app-secret'
               secretType: 'dockerRegistry'
               containerRegistryType: 'Azure Container Registry'
 
