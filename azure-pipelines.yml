@@ -1,0 +1,63 @@
+# Docker
+# Build a Docker image
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- none
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: CI
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'dockerconn'
+        repository: 'selvanregistry'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+    - task: PublishBuildArtifacts@1
+      displayName: Publish package ready for deployment
+      inputs:
+        PathtoPublish: '$(System.DefaultWorkingDirectory)/deployment.yaml'
+        artifactName: 'drop'
+    
+- stage: CD
+  displayName: CD Stage
+  dependsOn: CI
+  jobs:
+  - deployment: deploy
+    displayName: Deploy
+    environment: 'smarthotel-dev'
+    strategy: 
+      runOnce:
+        deploy:
+          steps:
+           - task: DownloadBuildArtifacts@0
+             displayName: 'Download the build artifacts'
+             inputs:
+                  buildType: 'current'
+                  downloadType: 'single'
+                  artifactName: 'drop'
+                  downloadPath: '$(System.ArtifactsDirectory)'
+
+
+           - task: KubernetesManifest@0
+             displayName: Deploy to Kubernetes cluster
+             inputs:
+                action: deploy
+                #kubernetesServiceConnection: K8s-selvanaks-default-1618203105101
+                #namespace: $(k8sNamespace)
+                manifests: $(System.ArtifactsDirectory)/drop/deployment.yaml
+                #imagePullSecrets: $(imagePullSecret)
+                #containers: $(containerRegistry)/$(imageRepository):$(tag)
