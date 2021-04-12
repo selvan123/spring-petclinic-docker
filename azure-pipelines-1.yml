@@ -10,7 +10,7 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '3bc68666-ecde-4325-b856-14c8599c9fc1'
+  dockerRegistryServiceConnection: 'newacrconn'
   vmImageName: 'ubuntu-latest' # name of your VM
   envName: 'kubernetesQA'
   resourceName: 'default'
@@ -35,7 +35,7 @@ stages:
       displayName: Build and push an image to container registry
       inputs:
         command: buildAndPush
-        repository: acrpetclinic1
+        repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
