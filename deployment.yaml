@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azure-petclinic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azure-petclinic
+  template:
+    metadata:
+      labels:
+        app: azure-petclinic
+    spec:      
+      containers:
+      - name: azure-petclinic
+        image: selvanimg.azurecr.io/petclinic:latest 
+        ports:
+        - containerPort: 8080
+          name: petclinic
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: azure-petclinic-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+  selector:
+    app: azure-petclinic
