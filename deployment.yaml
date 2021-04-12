@@ -14,7 +14,7 @@ spec:
     spec:      
       containers:
       - name: azure-petclinic
-        image: selvanimg.azurecr.io/petclinic:latest 
+        image: selvanimg.azurecr.io/petclinic
         ports:
         - containerPort: 8080
           name: petclinic
