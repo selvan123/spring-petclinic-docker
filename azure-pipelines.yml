@@ -38,7 +38,7 @@ stages:
   jobs:
   - deployment: deploy
     displayName: Deploy
-    environment: 'smarthotel-dev'
+    environment: 'newk.default'
     strategy: 
       runOnce:
         deploy:
