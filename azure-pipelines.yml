@@ -38,7 +38,7 @@ stages:
   jobs:
   - deployment: deploy
     displayName: Deploy
-    environment: 'newk.default'
+    environment: 'selvannewk8.default'
     strategy: 
       runOnce:
         deploy:
