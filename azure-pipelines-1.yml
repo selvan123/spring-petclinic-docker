@@ -3,7 +3,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- main
+- none
 
 resources:
 - repo: self
@@ -80,4 +80,8 @@ stages:
             inputs:
               action: deploy
               manifests: |
-                $(System.ArtifactsDirectory)/drop/deployment.yaml                              
+                $(System.ArtifactsDirectory)/drop/deployment.yaml                
+              imagePullSecrets: |
+                $(imagePullSecret)
+              containers: |
+                $(containerRegistry)/$(imageRepository):$(tag)
