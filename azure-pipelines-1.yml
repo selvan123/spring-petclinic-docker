@@ -40,15 +40,15 @@ stages:
         inlineScript: |
           for rgname in `az group list -o tsv --query [].name`; do
             echo Deleting ${rgname}
-            az group delete -n ${rgname} --yes --no-wait
+            az group delete -n ${rgname} --yes 
           done
 
-          az group create --name rgK8s --location eastus
+          az group create --name rgpetclinic --location eastus
           
-          az acr create --resource-group rgK8s --name acrpetclinic --sku Basic
+          az acr create --resource-group rgpetclinic --name acrpetclinic --sku Basic
                     
           az aks create \
-              --resource-group myResourceGroup \
+              --resource-group rgpetclinic \
               --name myAKSCluster \
               --node-count 2 \
               --generate-ssh-keys \
