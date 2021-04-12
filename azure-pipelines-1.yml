@@ -74,11 +74,24 @@ stages:
               action: createSecret
               secretName: $(imagePullSecret)
               dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
-              
+          
+          - task: Kubernetes@1
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              kubernetesServiceEndpoint: 'selvannewk8-myAKSCluster-default-1618226829416'
+              command: 'get'
+              arguments: 'secrets my-app-secret'
+              secretType: 'dockerRegistry'
+              containerRegistryType: 'Azure Container Registry'
+
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
             inputs:
               action: deploy
               manifests: |
                 $(System.ArtifactsDirectory)/drop/deployment.yaml                
+              imagePullSecrets: |
+                $(imagePullSecret)
+              containers: |
+                $(containerRegistry)/$(imageRepository):$(tag)
               
