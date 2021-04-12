@@ -83,5 +83,4 @@ stages:
                 $(System.ArtifactsDirectory)/drop/deployment.yaml                
               imagePullSecrets: |
                 $(imagePullSecret)
-              containers: |
-                $(containerRegistry)/$(imageRepository):$(tag)
+              
