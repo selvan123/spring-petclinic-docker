@@ -57,7 +57,7 @@ stages:
              inputs:
                 action: deploy
                 #kubernetesServiceConnection: K8s-selvanaks-default-1618203105101
-                #namespace: $(k8sNamespace)
+                namespace: default
                 manifests: $(System.ArtifactsDirectory)/drop/deployment.yaml
                 #imagePullSecrets: $(imagePullSecret)
                 #containers: $(containerRegistry)/$(imageRepository):$(tag)
