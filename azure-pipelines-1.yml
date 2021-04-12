@@ -23,39 +23,6 @@ variables:
   # Agent VM image name
 
 stages:
-- stage: Infra
-  displayName: Infra provisioning
-  jobs:
-  - job: Infra
-    displayName: Infra
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-
-    - task: AzureCLI@2
-      inputs:
-        azureSubscription: 'AzurePipeline'
-        scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        inlineScript: |
-          for rgname in `az group list -o tsv --query [].name`; do
-            echo Deleting ${rgname}
-            az group delete -n ${rgname} --yes 
-          done
-
-          az group create --name rgpetclinic --location eastus
-          
-          az acr create --resource-group rgpetclinic --name acrpetclinic --sku Basic
-
-          az acr login --name acrpetclinic
-
-          az aks create \
-              --resource-group rgpetclinic \
-              --name myAKSCluster \
-              --node-count 2 \
-              --generate-ssh-keys \
-              --attach-acr acrpetclinic
-
 - stage: Build
   displayName: Build and push stage
   jobs:
