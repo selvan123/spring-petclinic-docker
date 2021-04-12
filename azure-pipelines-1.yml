@@ -15,7 +15,7 @@ variables:
   envName: 'newk'
   resourceName: 'default'
   imageRepository: 'petclinic'
-  containerRegistry: 'acrpetclinic.azurecr.io'
+  containerRegistry: 'acrpetclinic1.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'my-app-secret' # image pull secret
