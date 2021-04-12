@@ -46,7 +46,9 @@ stages:
           az group create --name rgpetclinic --location eastus
           
           az acr create --resource-group rgpetclinic --name acrpetclinic --sku Basic
-                    
+
+          az acr login --name acrpetclinic
+
           az aks create \
               --resource-group rgpetclinic \
               --name myAKSCluster \
