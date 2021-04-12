@@ -15,11 +15,6 @@ spec:
       containers:
       - name: azure-petclinic
         image: selvanimg.azurecr.io/petclinic:latest 
-        imagePullPolicy: Always
-        readinessProbe:
-         httpGet:
-          path: /
-          port: 8080
         ports:
         - containerPort: 8080
           name: petclinic
