@@ -3,7 +3,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- none
+- main
 
 resources:
 - repo: self
@@ -68,12 +68,16 @@ stages:
                   downloadType: 'single'
                   artifactName: 'drop'
                   downloadPath: '$(System.ArtifactsDirectory)'
+          - task: KubernetesManifest@0
+            displayName: Create imagePullSecret
+            inputs:
+              action: createSecret
+              secretName: $(imagePullSecret)
+              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
               
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
             inputs:
               action: deploy
               manifests: |
-                $(System.ArtifactsDirectory)/drop/deployment.yaml                
-              containers: |
-                $(containerRegistry)/$(imageRepository):$(tag)
+                $(System.ArtifactsDirectory)/drop/deployment.yaml                              
