@@ -81,6 +81,4 @@ stages:
               action: deploy
               manifests: |
                 $(System.ArtifactsDirectory)/drop/deployment.yaml                
-              imagePullSecrets: |
-                $(imagePullSecret)
               
