@@ -5,10 +5,7 @@ metadata:
 spec:
   replicas: 3
   strategy:
-        type: RollingUpdate
-        rollingUpdate:
-           maxSurge: 25%
-           maxUnavailable: 25% 
+        type: Recreate
   selector:
     matchLabels:
       app: azure-petclinic
