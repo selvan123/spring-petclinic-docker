@@ -18,14 +18,3 @@ spec:
         ports:
         - containerPort: 8080
           name: petclinic
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: azure-petclinic-service
-spec:
-  type: LoadBalancer
-  ports:
-  - port: 8080
-  selector:
-    app: azure-petclinic
