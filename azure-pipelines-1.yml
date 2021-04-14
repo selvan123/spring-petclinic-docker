@@ -43,7 +43,7 @@ stages:
     - task: PublishBuildArtifacts@1
       displayName: Publish package ready for deployment
       inputs:
-        PathtoPublish: '$(System.DefaultWorkingDirectory)/deployment.yaml'
+        PathtoPublish: '$(System.DefaultWorkingDirectory)/*.yaml'
         artifactName: 'drop'
 - stage: Deploy
   displayName: Deploy stage
@@ -80,6 +80,7 @@ stages:
               action: deploy
               manifests: |
                 $(System.ArtifactsDirectory)/drop/deployment.yaml                
+                $(System.ArtifactsDirectory)/drop/service.yaml                
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
