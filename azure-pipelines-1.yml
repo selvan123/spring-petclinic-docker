@@ -43,7 +43,7 @@ stages:
     - task: PublishBuildArtifacts@1
       displayName: Publish package ready for deployment
       inputs:
-        PathtoPublish: '$(System.DefaultWorkingDirectory)/*.yaml'
+        PathtoPublish: '$(System.DefaultWorkingDirectory)'
         artifactName: 'drop'
 - stage: Deploy
   displayName: Deploy stage
