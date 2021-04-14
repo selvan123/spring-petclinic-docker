@@ -10,7 +10,7 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'newacrconn'
+  dockerRegistryServiceConnection: 'newacrconnection'
   vmImageName: 'ubuntu-latest' # name of your VM
   envName: 'kubernetesQA'
   resourceName: 'default'
